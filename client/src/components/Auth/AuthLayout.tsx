@@ -72,33 +72,33 @@ function AuthLayout({
   };
 
   return (
-    <div className="bg-surface-primary relative flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col bg-gray-50">
       <Banner />
       <DisplayError />
       <div className="absolute inset-s-0 bottom-0 md:m-4">
         <ThemeSelector />
       </div>
 
-      <main className="flex grow items-center justify-center">
+      <main className="flex grow items-center justify-center px-4 py-8">
         <div
           className={cn(
-            'bg-surface-primary overflow-hidden px-6 py-4 sm:rounded-lg',
-            isTwoFactorSetup ? 'w-11/12 max-w-lg' : 'w-authPageWidth sm:max-w-md',
+            'bg-white overflow-hidden rounded-2xl px-8 py-10 shadow-lg',
+            isTwoFactorSetup ? 'w-11/12 max-w-lg' : 'w-full max-w-md',
           )}
         >
           {/* Logo centered above the form */}
           <BlinkAnimation active={isFetching}>
-            <div className="mb-6 flex justify-center">
+            <div className="mb-8 flex justify-center">
               <img
                 src="assets/logo.svg"
-                className="h-20 w-auto object-contain"
+                className="h-24 w-auto object-contain"
                 alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'LibreChat' })}
               />
             </div>
           </BlinkAnimation>
 
           {!hasStartupConfigError && !isFetching && header && (
-            <h1 className="text-text-primary mb-4 text-center text-3xl font-semibold select-none">
+            <h1 className="text-text-primary mb-6 text-center text-3xl font-semibold select-none">
               {header}
             </h1>
           )}
