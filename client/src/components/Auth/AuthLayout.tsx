@@ -33,28 +33,12 @@ function AuthLayout({
   const isRegister = pathname.includes('register');
   const isLogin = !pathname.includes('2fa') && pathname.includes('login');
   const showsSocialLogin = isLogin || isRegister;
-  /** Both ways in state it, rather than the layout guessing which of them can
-   *  create an account. That guess is not available here: account creation
-   *  also happens on a first provider sign-in, on a first LDAP sign-in through
-   *  the ordinary form, and is gated server-side by ALLOW_SOCIAL_REGISTRATION,
-   *  which the startup payload does not carry. The sentence is about
-   *  continuing, which is what both screens do, and it names the same policies
-   *  the footer bar linked, so a screen states them once. */
   const hasPolicies = hasPublishedPolicies(startupConfig);
-  /** Registration states it under its own submit button, where it is read
-   *  before the account is created rather than below however many provider
-   *  buttons a deployment configured, and it renders that form only once the
-   *  config has loaded without error. The login screen has no submit button of
-   *  its own to sit under, so there the layout states it below the providers,
-   *  for as long as it knows the policies: a background refetch must not swap
-   *  the sentence for the bar and back. */
   const registrationStatesConsent =
     isRegister && hasPolicies && !hasStartupConfigError && !isFetching;
   const statesConsentBelowProviders = isLogin && hasPolicies;
-  /** The bar is dropped exactly when the sentence is on the screen, so a
-   *  reader never meets both and never meets neither. */
-  const statesConsent = registrationStatesConsent || statesConsentBelowProviders;
   const isTwoFactorSetup = pathname === '/login/2fa/setup';
+
   const DisplayError = () => {
     if (hasStartupConfigError) {
       return (
@@ -90,15 +74,6 @@ function AuthLayout({
   return (
     <div className="bg-surface-primary relative flex min-h-screen flex-col">
       <Banner />
-      <BlinkAnimation active={isFetching}>
-        <div className="mt-6 h-10 w-full bg-cover">
-          <img
-            src="assets/logo.svg"
-            className="h-full w-full object-contain"
-            alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'LibreChat' })}
-          />
-        </div>
-      </BlinkAnimation>
       <DisplayError />
       <div className="absolute inset-s-0 bottom-0 md:m-4">
         <ThemeSelector />
@@ -111,6 +86,17 @@ function AuthLayout({
             isTwoFactorSetup ? 'w-11/12 max-w-lg' : 'w-authPageWidth sm:max-w-md',
           )}
         >
+          {/* Logo centered above the form */}
+          <BlinkAnimation active={isFetching}>
+            <div className="mb-6 flex justify-center">
+              <img
+                src="assets/logo.svg"
+                className="h-20 w-auto object-contain"
+                alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'LibreChat' })}
+              />
+            </div>
+          </BlinkAnimation>
+
           {!hasStartupConfigError && !isFetching && header && (
             <h1 className="text-text-primary mb-4 text-center text-3xl font-semibold select-none">
               {header}
@@ -123,7 +109,7 @@ function AuthLayout({
           {statesConsentBelowProviders && <LegalConsent startupConfig={startupConfig} />}
         </div>
       </main>
-      {!statesConsent && <Footer startupConfig={startupConfig} />}
+      {!registrationStatesConsent && <Footer startupConfig={startupConfig} />}
     </div>
   );
 }
