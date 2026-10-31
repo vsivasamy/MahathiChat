@@ -91,7 +91,8 @@ function AuthLayout({
             <div className="mb-8 flex justify-center">
               <img
                 src="assets/logo.svg"
-                className="h-24 w-auto object-contain"
+                className="h-20 w-auto max-w-[220px] object-contain"
+                style={{ transform: 'translateX(6px)' }}
                 alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'LibreChat' })}
               />
             </div>
