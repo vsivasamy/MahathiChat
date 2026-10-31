@@ -1,0 +1,27 @@
+version: 1.3.18
+cache: true
+
+fileConfig:
+  endpoints:
+    default:
+      disabled: true
+    openAI:
+      disabled: true
+    anthropic:
+      disabled: true
+    google:
+      disabled: true
+    custom:
+      disabled: true
+
+endpoints:
+  custom:
+    - name: "Grok"
+      apiKey: "${XAI_API_KEY}"
+      baseURL: "https://api.x.ai/v1"
+      models:
+        default: ["grok-4", "grok-3", "grok-3-mini"]
+        fetch: true
+      titleConvo: true
+      titleModel: "current_model"
+      modelDisplayLabel: "Grok"
