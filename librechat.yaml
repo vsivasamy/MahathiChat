@@ -56,3 +56,47 @@ endpoints:
       titleConvo: true
       titleModel: "current_model"
       modelDisplayLabel: "Grok"
+      # One credit per token. LibreChat spends credits = tokens × rate, and a
+      # rate is USD per million tokens, so 1 spends one credit per token.
+      # This overrides the built-in grok-4.7/4.6/4.5 prices ($2 input / $6
+      # output per million, doubled at a 200k prompt). Context is the published
+      # window and only sizes the context meter. An id missing here is not on
+      # this meter: a built-in price match is used, otherwise 6 credits/token.
+      tokenConfig:
+        grok-4.7: &grokTokenMeter
+          prompt: 1
+          completion: 1
+          cacheRead: 1
+          cacheWrite: 1
+          cacheWrite1h: 1
+          context: 500000
+        grok-4-7:
+          <<: *grokTokenMeter
+        grok-4.6:
+          <<: *grokTokenMeter
+        grok-4-6:
+          <<: *grokTokenMeter
+        grok-4.5:
+          <<: *grokTokenMeter
+        grok-4-5:
+          <<: *grokTokenMeter
+        grok-4.3:
+          <<: *grokTokenMeter
+          context: 1000000
+        grok-4-3:
+          <<: *grokTokenMeter
+          context: 1000000
+
+# 20,000 credits, reset each calendar month. With the Grok rates above, that is
+# 20,000 tokens of any mix. `reset` replaces the balance; unused credits do not
+# roll over. The balance UI still says "credits"; that number is the token count.
+# `display: currency` would show about $0.02 and is intentionally not used.
+balance:
+  enabled: true
+  startBalance: 20000
+  autoRefillEnabled: true
+  refillIntervalValue: 1
+  refillIntervalUnit: "months"
+  refillAmount: 20000
+  refillMode: "reset"
+  display: "credits"
