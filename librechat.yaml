@@ -19,6 +19,8 @@ modelSpecs:
   prioritize: true
   addedEndpoints:
     - "agents"
+    - "openAI"
+    - "anthropic"
   list:
     - name: "grok"
       label: "Grok"
@@ -46,6 +48,14 @@ endpoints:
       - "tools"
       - "chain"
       - "ocr"
+  # These lists replace OPENAI_MODELS / ANTHROPIC_MODELS and live discovery.
+  # Pricing stays on the built-in tables (prompt 0.10, completion 0.50 per million).
+  openAI:
+    models:
+      - "gpt-6-luna"
+  anthropic:
+    models:
+      - "claude-haiku-5-5"
   custom:
     - name: "Grok"
       apiKey: "${XAI_API_KEY}"
