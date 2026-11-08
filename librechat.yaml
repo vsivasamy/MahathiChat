@@ -103,10 +103,10 @@ endpoints:
 # `display: currency` would show about $0.02 and is intentionally not used.
 balance:
   enabled: true
-  startBalance: 20000
+  startBalance: 3000000
   autoRefillEnabled: true
   refillIntervalValue: 1
   refillIntervalUnit: "months"
-  refillAmount: 20000
+  refillAmount: 3000000
   refillMode: "reset"
   display: "credits"
