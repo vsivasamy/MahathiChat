@@ -80,42 +80,44 @@ function AuthLayout({
       </div>
 
       {/* Left branding panel */}
-      <div className="hidden md:flex md:w-1/2 flex-col items-center justify-center bg-gradient-to-br from-green-50 to-green-100 p-12 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_30%,_var(--tw-gradient-stops))] from-green-300 to-transparent" />
+      <div className="hidden md:flex md:w-[46%] flex-col items-center justify-center bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 px-10 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute -top-20 -left-20 h-80 w-80 rounded-full bg-green-200 blur-3xl" />
+          <div className="absolute -bottom-20 -right-20 h-80 w-80 rounded-full bg-emerald-200 blur-3xl" />
         </div>
         <BlinkAnimation active={isFetching}>
-          <div className="relative z-10 flex flex-col items-center text-center">
+          <div className="relative z-10 flex flex-col items-center text-center max-w-md">
             <img
               src="assets/logo.svg"
-              className="h-32 w-auto max-w-[280px] object-contain mb-8"
+              className="w-72 h-auto object-contain"
               alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'Mahathi Infotech' })}
             />
-            <h2 className="text-4xl font-bold text-green-800 tracking-tight">Mahathi Infotech</h2>
-            <p className="mt-4 text-green-700 text-lg">Innovate. Integrate. Inspire.</p>
+            <p className="mt-6 text-green-700 text-base tracking-wide">
+              Innovate. Integrate. Inspire.
+            </p>
           </div>
         </BlinkAnimation>
       </div>
 
       {/* Right form panel */}
-      <main className="flex grow items-center justify-center px-4 py-8 md:w-1/2 bg-white">
+      <main className="flex flex-1 items-center justify-center px-6 py-10 md:px-12 bg-white">
         <div
           className={cn(
-            'w-full max-w-md',
-            isTwoFactorSetup ? 'max-w-lg' : '',
+            'w-full max-w-sm',
+            isTwoFactorSetup ? 'max-w-md' : '',
           )}
         >
           {/* Mobile logo */}
-          <div className="mb-8 flex justify-center md:hidden">
+          <div className="mb-10 flex justify-center md:hidden">
             <img
               src="assets/logo.svg"
-              className="h-20 w-auto max-w-[220px] object-contain"
+              className="w-56 h-auto object-contain"
               alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'Mahathi Infotech' })}
             />
           </div>
 
           {!hasStartupConfigError && !isFetching && header && (
-            <h1 className="text-text-primary mb-6 text-center text-3xl font-semibold select-none">
+            <h1 className="text-text-primary mb-8 text-center text-3xl font-semibold select-none">
               {header}
             </h1>
           )}
