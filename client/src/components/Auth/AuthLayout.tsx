@@ -92,7 +92,7 @@ function AuthLayout({
               className="w-72 h-auto object-contain"
               alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'Mahathi Infotech' })}
             />
-            <p className="mt-6 text-green-700 text-base tracking-wide">
+            <p className="mt-10 text-green-800 text-2xl font-semibold tracking-wider">
               Innovate. Integrate. Inspire.
             </p>
           </div>
